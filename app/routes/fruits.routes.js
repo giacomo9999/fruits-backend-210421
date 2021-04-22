@@ -9,5 +9,5 @@ module.exports = (app) => {
   });
 
   // create a new fruit
-  router.post("/", fruits.create);
+  router.post("/fruits", fruits.create);
 };

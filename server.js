@@ -20,13 +20,14 @@ mongoose
   .catch((error) => console.error(error));
 
 app.use(cors(corsOptions));
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the fruits server" });
 });
 
-require("./app/routes/fruits.routes.js")(app);
+require("./app/routes/fruits.routes")(app);
 app.listen(PORT, () => {
   console.log("Server running on port", PORT);
 });

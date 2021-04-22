@@ -2,7 +2,7 @@ const db = require("../models");
 const Fruit = db.fruits;
 
 exports.create = (req, res) => {
-  console.log("Creating a new fruit...",db.Fruits);
+  console.log("Creating a new fruit...", req.body);
   // Validate request
   if (!req.body.fruitName) {
     res.status(400).send({ message: "Content cannot be empty." });
@@ -14,6 +14,8 @@ exports.create = (req, res) => {
     fruitColor: req.body.fruitColor,
     fruitShape: req.body.fruitShape,
   });
+
+  console.log("Fruit:", fruit);
 
   fruit
     .save(fruit)
