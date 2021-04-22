@@ -1,10 +1,10 @@
-const db = require("./models");
+const db = require("../models");
 const Fruit = db.fruits;
 
 exports.create = (req, res) => {
-  console.log("Creating a new fruit...");
+  console.log("Creating a new fruit...",db.Fruits);
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.fruitName) {
     res.status(400).send({ message: "Content cannot be empty." });
     return;
   }

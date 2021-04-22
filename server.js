@@ -1,9 +1,11 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config();
-
 const app = express();
+require("dotenv").config();
+const PORT = process.env.PORT || 8080;
+
+let corsOptions = { origin: "http://localhost:8081" };
 
 const connectionString = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.msg1u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
@@ -17,8 +19,6 @@ mongoose
   })
   .catch((error) => console.error(error));
 
-let corsOptions = { origin: "http://localhost:8081" };
-
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 
@@ -26,9 +26,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the fruits server" });
 });
 
-require("./app/routes/fruits.routes");
-
-const PORT = process.env.PORT || 8080;
+require("./app/routes/fruits.routes.js")(app);
 app.listen(PORT, () => {
   console.log("Server running on port", PORT);
 });
