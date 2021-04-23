@@ -27,8 +27,35 @@ exports.create = (req, res) => {
     });
 };
 
-exports.findAll = (req, res) => {};
-exports.findOne = (req, res) => {};
+exports.findAll = (req, res) => {
+  const fruitName = req.query.fruitName;
+  console.log(req.query);
+  // let condition = fruitName
+  //   ? { fruitName: { $regex: new RegExp(fruitName), $options: "i" } }
+  //   : {};
+  let condition = { fruitName: fruitName };
+  Fruit.find(condition)
+    .then((data) => res.send(data))
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || "Error occurred while retrieving fruits",
+      });
+    });
+};
+
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+  Fruit.findById(id)
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({ message: "No entry found with id " + id });
+      } else res.send(data);
+    })
+    .catch((err) => {
+      res.status(500).send({ message: "Error retrieving entry with id " + id });
+    });
+};
+
 exports.update = (req, res) => {};
 exports.delete = (req, res) => {};
 exports.deleteAll = (req, res) => {};
